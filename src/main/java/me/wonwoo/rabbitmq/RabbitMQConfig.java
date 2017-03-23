@@ -7,6 +7,8 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,6 +47,13 @@ public class RabbitMQConfig {
 
   @Bean
   MessageListenerAdapter listenerAdapter(RabbitMQReceiver rabbitMQReceiver) {
-    return new MessageListenerAdapter(rabbitMQReceiver, "receiveMessage");
+    final MessageListenerAdapter receiveMessage = new MessageListenerAdapter(rabbitMQReceiver, "receiveMessage");
+    receiveMessage.setMessageConverter(jackson2JsonMessageConverter());
+    return receiveMessage;
+  }
+
+  @Bean
+  MessageConverter jackson2JsonMessageConverter() {
+    return new Jackson2JsonMessageConverter();
   }
 }

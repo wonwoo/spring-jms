@@ -1,5 +1,6 @@
 package me.wonwoo.rabbitmq;
 
+import me.wonwoo.activemq.Email;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQReceiver {
 
-  public void receiveMessage(String body) {
-    System.out.println(body);
+  public void receiveMessage(Email email) {
+    System.out.println(email);
   }
 }

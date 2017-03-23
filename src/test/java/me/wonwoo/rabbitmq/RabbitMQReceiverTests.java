@@ -3,6 +3,7 @@ package me.wonwoo.rabbitmq;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import me.wonwoo.activemq.Email;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,13 +37,12 @@ public class RabbitMQReceiverTests {
   public void senderTest() throws InterruptedException {
     rabbitTemplate.convertAndSend(
       "spring-rabbit-sample",
-      "hi spring jms"
+      new Email("test@test.com", "hi spring jms")
     );
     latch.await(2, TimeUnit.SECONDS);
     final String actual = this.outputCapture.toString();
     assertThat(actual)
-      .contains("hi spring jms");
-
+      .contains("Email{to='test@test.com', body='hi spring jms'}");
   }
 
 }

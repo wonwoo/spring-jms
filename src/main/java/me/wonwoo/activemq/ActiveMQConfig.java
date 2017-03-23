@@ -18,7 +18,7 @@ import org.springframework.jms.support.converter.MessageType;
 @EnableJms
 public class ActiveMQConfig {
   @Bean
-  public JmsListenerContainerFactory<?> jmsListenerContainerFactory(ConnectionFactory connectionFactory,
+  JmsListenerContainerFactory<?> jmsListenerContainerFactory(ConnectionFactory connectionFactory,
                                                                     DefaultJmsListenerContainerFactoryConfigurer configurer) {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     configurer.configure(factory, connectionFactory);
@@ -26,7 +26,7 @@ public class ActiveMQConfig {
   }
 
   @Bean
-  public MessageConverter jacksonJmsMessageConverter() {
+  MessageConverter jacksonJmsMessageConverter() {
     MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
     converter.setTargetType(MessageType.TEXT);
     converter.setTypeIdPropertyName("_type");
