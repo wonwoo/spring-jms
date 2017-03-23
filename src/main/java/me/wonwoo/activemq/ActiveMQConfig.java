@@ -17,8 +17,6 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 @EnableJms
 public class ActiveMQConfig {
-
-
   @Bean
   public JmsListenerContainerFactory<?> jmsListenerContainerFactory(ConnectionFactory connectionFactory,
                                                                     DefaultJmsListenerContainerFactoryConfigurer configurer) {
@@ -34,5 +32,4 @@ public class ActiveMQConfig {
     converter.setTypeIdPropertyName("_type");
     return converter;
   }
-
 }
